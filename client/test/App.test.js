@@ -7,15 +7,15 @@ import { VisibleTodoList } from '../app/visibleTodos/visibleTodos.jsx';
 describe('App', () => {
   const wrapper = shallow(<App />);
 
-  it('should render <AddTodo /> component', () => {
+  it('App should render <AddTodo /> component', () => {
     expect(wrapper.find(AddTodo)).to.have.length(1);
   });
 
-  it('should render <VisibleTodoList /> component', () => {
+  it('App should render <VisibleTodoList /> component', () => {
     expect(wrapper.find(VisibleTodoList)).to.have.length(1);
   });
 
-  it('should render <Footer /> component', () => {
+  it('App should render <Footer /> component', () => {
     expect(wrapper.find(Footer)).to.have.length(1);
   });
 });

@@ -61,13 +61,13 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 199);
 	
-	var _reducers = __webpack_require__(/*! ./reducers/reducers.jsx */ 224);
+	var _reducers = __webpack_require__(/*! ./reducers/reducers.jsx */ 216);
 	
-	var _addTodo = __webpack_require__(/*! ./addTodo/addTodo.jsx */ 225);
+	var _addTodo = __webpack_require__(/*! ./addTodo/addTodo.jsx */ 217);
 	
-	var _footer = __webpack_require__(/*! ./filters/footer.jsx */ 226);
+	var _footer = __webpack_require__(/*! ./filters/footer.jsx */ 218);
 	
-	var _visibleTodos = __webpack_require__(/*! ./visibleTodos/visibleTodos.jsx */ 229);
+	var _visibleTodos = __webpack_require__(/*! ./visibleTodos/visibleTodos.jsx */ 221);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -24397,15 +24397,7 @@
 	}
 
 /***/ },
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */,
-/* 221 */,
-/* 222 */,
-/* 223 */,
-/* 224 */
+/* 216 */
 /*!******************************************!*\
   !*** ./client/app/reducers/reducers.jsx ***!
   \******************************************/
@@ -24464,7 +24456,7 @@
 	};
 
 /***/ },
-/* 225 */
+/* 217 */
 /*!****************************************!*\
   !*** ./client/app/addTodo/addTodo.jsx ***!
   \****************************************/
@@ -24514,7 +24506,7 @@
 	exports.AddTodo = AddTodo = (0, _reactRedux.connect)()(AddTodo);
 
 /***/ },
-/* 226 */
+/* 218 */
 /*!***************************************!*\
   !*** ./client/app/filters/footer.jsx ***!
   \***************************************/
@@ -24531,7 +24523,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _filterLink = __webpack_require__(/*! ./filterLink.jsx */ 227);
+	var _filterLink = __webpack_require__(/*! ./filterLink.jsx */ 219);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -24562,7 +24554,7 @@
 	};
 
 /***/ },
-/* 227 */
+/* 219 */
 /*!*******************************************!*\
   !*** ./client/app/filters/filterLink.jsx ***!
   \*******************************************/
@@ -24579,7 +24571,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _link = __webpack_require__(/*! ./link.jsx */ 228);
+	var _link = __webpack_require__(/*! ./link.jsx */ 220);
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 199);
 	
@@ -24605,7 +24597,7 @@
 	var FilterLink = exports.FilterLink = (0, _reactRedux.connect)(mapStateToFilterProps, mapDispatchToFilterProps)(_link.Link);
 
 /***/ },
-/* 228 */
+/* 220 */
 /*!*************************************!*\
   !*** ./client/app/filters/link.jsx ***!
   \*************************************/
@@ -24648,7 +24640,7 @@
 	};
 
 /***/ },
-/* 229 */
+/* 221 */
 /*!**************************************************!*\
   !*** ./client/app/visibleTodos/visibleTodos.jsx ***!
   \**************************************************/
@@ -24667,7 +24659,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 199);
 	
-	var _todoList = __webpack_require__(/*! ./todoList.jsx */ 230);
+	var _todoList = __webpack_require__(/*! ./todoList.jsx */ 222);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -24706,7 +24698,7 @@
 	var VisibleTodoList = exports.VisibleTodoList = (0, _reactRedux.connect)(mapStateToTodoListProps, mapDispatchToTodoListProps)(_todoList.TodoList);
 
 /***/ },
-/* 230 */
+/* 222 */
 /*!**********************************************!*\
   !*** ./client/app/visibleTodos/todoList.jsx ***!
   \**********************************************/
@@ -24723,7 +24715,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _todos = __webpack_require__(/*! ./todos.jsx */ 231);
+	var _todos = __webpack_require__(/*! ./todos.jsx */ 223);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -24744,7 +24736,7 @@
 	};
 
 /***/ },
-/* 231 */
+/* 223 */
 /*!*******************************************!*\
   !*** ./client/app/visibleTodos/todos.jsx ***!
   \*******************************************/

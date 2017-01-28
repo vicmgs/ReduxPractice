@@ -11,7 +11,7 @@ import { VisibleTodoList } from './visibleTodos/visibleTodos.jsx';
 
 const todoApp = combineReducers({ todos, vizFilter });
 
-const App = () => (
+export const App = () => (
     <div>
       <AddTodo />
       <VisibleTodoList />

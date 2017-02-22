@@ -88,9 +88,20 @@
 	  );
 	};
 	
+	var persistedState = {
+	  todos: [{
+	    id: 0,
+	    text: 'Welcome Back',
+	    completed: false
+	  }],
+	  vizFilter: 'SHOW_ACTIVE'
+	};
+	var store = (0, _redux.createStore)(todoApp, persistedState);
+	console.log(store.getState());
+	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
-	  { store: (0, _redux.createStore)(todoApp) },
+	  { store: store },
 	  _react2.default.createElement(App, null)
 	), document.getElementById('app'));
 
@@ -25231,7 +25242,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	exports.FilterLink = undefined;
 	
@@ -25248,17 +25259,17 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToFilterProps = function mapStateToFilterProps(state, ownProps) {
-	    return {
-	        active: ownProps.filter === state.vizFilter
-	    };
+	  return {
+	    active: ownProps.filter === state.vizFilter
+	  };
 	};
 	
 	var mapDispatchToFilterProps = function mapDispatchToFilterProps(dispatch, ownProps) {
-	    return {
-	        onClick: function onClick() {
-	            return dispatch((0, _actions.setFilter)(ownProps.filter));
-	        }
-	    };
+	  return {
+	    onClick: function onClick() {
+	      dispatch((0, _actions.setFilter)(ownProps.filter));
+	    }
+	  };
 	};
 	
 	var FilterLink = exports.FilterLink = (0, _reactRedux.connect)(mapStateToFilterProps, mapDispatchToFilterProps)(_link.Link);

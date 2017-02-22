@@ -19,7 +19,18 @@ export const App = () => (
     </div>
 )
 
+const persistedState = {
+  todos: [{
+    id: 0,
+    text: 'Welcome Back',
+    completed: false
+  }],
+  vizFilter: 'SHOW_ACTIVE'
+}
+const store = createStore(todoApp, persistedState);
+console.log(store.getState());
+
 ReactDOM.render(
-  <Provider store={createStore(todoApp)} >
+  <Provider store={store} >
     <App />
   </Provider>, document.getElementById('app'));

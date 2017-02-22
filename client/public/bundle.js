@@ -25110,6 +25110,8 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 204);
 	
+	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 239);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var nextId = 0;
@@ -25127,11 +25129,7 @@
 	    _react2.default.createElement(
 	      'button',
 	      { onClick: function onClick() {
-	          dispatch({
-	            type: 'ADD',
-	            id: nextId++,
-	            text: input.value
-	          });
+	          dispatch((0, _actions.addTodo)(input.value));
 	          input.value = '';
 	        } },
 	      'Add Todo'
@@ -25210,6 +25208,8 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 204);
 	
+	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 239);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToFilterProps = function mapStateToFilterProps(state, ownProps) {
@@ -25221,10 +25221,7 @@
 	var mapDispatchToFilterProps = function mapDispatchToFilterProps(dispatch, ownProps) {
 	  return {
 	    onClick: function onClick() {
-	      return dispatch({
-	        type: 'SET_FILTER',
-	        filter: ownProps.filter
-	      });
+	      return dispatch((0, _actions.setFilter)(ownProps.filter));
 	    }
 	  };
 	};
@@ -25296,6 +25293,8 @@
 	
 	var _todoList = __webpack_require__(/*! ./todoList.jsx */ 237);
 	
+	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 239);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var getVisibleTodos = function getVisibleTodos(todos, filter) {
@@ -25322,10 +25321,7 @@
 	var mapDispatchToTodoListProps = function mapDispatchToTodoListProps(dispatch) {
 	  return {
 	    onTodoClick: function onTodoClick(id) {
-	      dispatch({
-	        type: 'TOGGLE',
-	        id: id
-	      });
+	      dispatch((0, _actions.toggleTodo)(id));
 	    }
 	  };
 	};
@@ -25400,6 +25396,41 @@
 	      style: { textDecoration: completed ? 'line-through' : 'none' } },
 	    text
 	  );
+	};
+
+/***/ },
+/* 239 */
+/*!***********************************************!*\
+  !*** ./client/app/actionCreators/actions.jsx ***!
+  \***********************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var nextId = 0;
+	var addTodo = exports.addTodo = function addTodo(text) {
+	  return {
+	    type: 'ADD',
+	    id: nextId++,
+	    text: text
+	  };
+	};
+	
+	var setFilter = exports.setFilter = function setFilter(filter) {
+	  return {
+	    type: 'SET_FILTER',
+	    filter: filter
+	  };
+	};
+	
+	var toggleTodo = exports.toggleTodo = function toggleTodo(id) {
+	  return {
+	    type: 'TOGGLE',
+	    id: id
+	  };
 	};
 
 /***/ }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from './link.jsx';
 import { connect } from 'react-redux';
+import { setFilter } from '../actionCreators/actions.jsx';
 
 const mapStateToFilterProps = (state, ownProps) => {
   return {
@@ -10,10 +11,7 @@ const mapStateToFilterProps = (state, ownProps) => {
 
 const mapDispatchToFilterProps = (dispatch, ownProps) => {
   return {
-    onClick: () => dispatch({
-      type: 'SET_FILTER',
-      filter: ownProps.filter
-    })
+    onClick: () => dispatch(setFilter(ownProps.filter))
   };
 }
 

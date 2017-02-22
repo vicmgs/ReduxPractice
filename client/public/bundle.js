@@ -74,6 +74,8 @@
 	
 	var _visibleTodos = __webpack_require__(/*! ./visibleTodos/visibleTodos.jsx */ 237);
 	
+	var _localStorage = __webpack_require__(/*! ./localStorage/localStorage.jsx */ 240);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var todoApp = (0, _redux.combineReducers)({ todos: _reducers.todos, vizFilter: _reducers.vizFilter });
@@ -88,16 +90,13 @@
 	  );
 	};
 	
-	var persistedState = {
-	  todos: [{
-	    id: 0,
-	    text: 'Welcome Back',
-	    completed: false
-	  }],
-	  vizFilter: 'SHOW_ACTIVE'
-	};
+	var persistedState = (0, _localStorage.loadState)();
 	var store = (0, _redux.createStore)(todoApp, persistedState);
-	console.log(store.getState());
+	store.subscribe(function () {
+	  (0, _localStorage.saveState)({
+	    todos: store.getState().todos
+	  });
+	});
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
@@ -25442,6 +25441,41 @@
 	      style: { textDecoration: completed ? 'line-through' : 'none' } },
 	    text
 	  );
+	};
+
+/***/ },
+/* 240 */
+/*!**************************************************!*\
+  !*** ./client/app/localStorage/localStorage.jsx ***!
+  \**************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var loadState = exports.loadState = function loadState() {
+	  try {
+	    var serializedState = localStorage.getItem('state');
+	    if (serializedState === null) {
+	      console.log('here');
+	      return undefined;
+	    } else {
+	      return JSON.parse(serializedState);
+	    }
+	  } catch (err) {
+	    return undefined;
+	  }
+	};
+	
+	var saveState = exports.saveState = function saveState(state) {
+	  try {
+	    var serializedState = JSON.stringify(state);
+	    localStorage.setItem('state', serializedState);
+	  } catch (err) {
+	    console.log('problem with serializing state to local storage');
+	  }
 	};
 
 /***/ }

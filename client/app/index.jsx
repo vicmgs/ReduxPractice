@@ -8,6 +8,7 @@ import { todos, vizFilter } from './reducers/reducers.jsx';
 import { AddTodo } from './addTodo/addTodo.jsx';
 import { Footer } from './filters/footer.jsx';
 import { VisibleTodoList } from './visibleTodos/visibleTodos.jsx';
+import { loadState, saveState } from './localStorage/localStorage.jsx';
 
 const todoApp = combineReducers({ todos, vizFilter });
 
@@ -19,16 +20,14 @@ export const App = () => (
     </div>
 )
 
-const persistedState = {
-  todos: [{
-    id: 0,
-    text: 'Welcome Back',
-    completed: false
-  }],
-  vizFilter: 'SHOW_ACTIVE'
-}
+const persistedState = loadState();
 const store = createStore(todoApp, persistedState);
-console.log(store.getState());
+store.subscribe(() => {
+  saveState({
+    todos: store.getState().todos
+  });
+});
+
 
 ReactDOM.render(
   <Provider store={store} >

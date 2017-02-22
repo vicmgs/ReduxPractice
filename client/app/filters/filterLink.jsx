@@ -8,7 +8,9 @@ const mapStateToFilterProps = (state, ownProps) => ({
 });
 
 const mapDispatchToFilterProps = (dispatch, ownProps) => ({
-    onClick: () => dispatch(setFilter(ownProps.filter))
+    onClick() {
+      dispatch(setFilter(ownProps.filter))
+    }
 });
 
 export const FilterLink = connect(

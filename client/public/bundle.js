@@ -70,9 +70,9 @@
 	
 	var _addTodo = __webpack_require__(/*! ./addTodo/addTodo.jsx */ 232);
 	
-	var _footer = __webpack_require__(/*! ./filters/footer.jsx */ 233);
+	var _footer = __webpack_require__(/*! ./filters/footer.jsx */ 234);
 	
-	var _visibleTodos = __webpack_require__(/*! ./visibleTodos/visibleTodos.jsx */ 236);
+	var _visibleTodos = __webpack_require__(/*! ./visibleTodos/visibleTodos.jsx */ 237);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -25110,7 +25110,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 204);
 	
-	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 239);
+	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 233);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -25140,6 +25140,41 @@
 
 /***/ },
 /* 233 */
+/*!***********************************************!*\
+  !*** ./client/app/actionCreators/actions.jsx ***!
+  \***********************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var nextId = 0;
+	var addTodo = exports.addTodo = function addTodo(text) {
+	  return {
+	    type: 'ADD',
+	    id: nextId++,
+	    text: text
+	  };
+	};
+	
+	var setFilter = exports.setFilter = function setFilter(filter) {
+	  return {
+	    type: 'SET_FILTER',
+	    filter: filter
+	  };
+	};
+	
+	var toggleTodo = exports.toggleTodo = function toggleTodo(id) {
+	  return {
+	    type: 'TOGGLE',
+	    id: id
+	  };
+	};
+
+/***/ },
+/* 234 */
 /*!***************************************!*\
   !*** ./client/app/filters/footer.jsx ***!
   \***************************************/
@@ -25156,7 +25191,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _filterLink = __webpack_require__(/*! ./filterLink.jsx */ 234);
+	var _filterLink = __webpack_require__(/*! ./filterLink.jsx */ 235);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -25187,7 +25222,7 @@
 	};
 
 /***/ },
-/* 234 */
+/* 235 */
 /*!*******************************************!*\
   !*** ./client/app/filters/filterLink.jsx ***!
   \*******************************************/
@@ -25196,7 +25231,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	exports.FilterLink = undefined;
 	
@@ -25204,32 +25239,32 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _link = __webpack_require__(/*! ./link.jsx */ 235);
+	var _link = __webpack_require__(/*! ./link.jsx */ 236);
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 204);
 	
-	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 239);
+	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 233);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToFilterProps = function mapStateToFilterProps(state, ownProps) {
-	  return {
-	    active: ownProps.filter === state.vizFilter
-	  };
+	    return {
+	        active: ownProps.filter === state.vizFilter
+	    };
 	};
 	
 	var mapDispatchToFilterProps = function mapDispatchToFilterProps(dispatch, ownProps) {
-	  return {
-	    onClick: function onClick() {
-	      return dispatch((0, _actions.setFilter)(ownProps.filter));
-	    }
-	  };
+	    return {
+	        onClick: function onClick() {
+	            return dispatch((0, _actions.setFilter)(ownProps.filter));
+	        }
+	    };
 	};
 	
 	var FilterLink = exports.FilterLink = (0, _reactRedux.connect)(mapStateToFilterProps, mapDispatchToFilterProps)(_link.Link);
 
 /***/ },
-/* 235 */
+/* 236 */
 /*!*************************************!*\
   !*** ./client/app/filters/link.jsx ***!
   \*************************************/
@@ -25272,7 +25307,7 @@
 	};
 
 /***/ },
-/* 236 */
+/* 237 */
 /*!**************************************************!*\
   !*** ./client/app/visibleTodos/visibleTodos.jsx ***!
   \**************************************************/
@@ -25291,9 +25326,9 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 204);
 	
-	var _todoList = __webpack_require__(/*! ./todoList.jsx */ 237);
+	var _todoList = __webpack_require__(/*! ./todoList.jsx */ 238);
 	
-	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 239);
+	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 233);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -25329,7 +25364,7 @@
 	var VisibleTodoList = exports.VisibleTodoList = (0, _reactRedux.connect)(mapStateToTodoListProps, mapDispatchToTodoListProps)(_todoList.TodoList);
 
 /***/ },
-/* 237 */
+/* 238 */
 /*!**********************************************!*\
   !*** ./client/app/visibleTodos/todoList.jsx ***!
   \**********************************************/
@@ -25346,7 +25381,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _todos = __webpack_require__(/*! ./todos.jsx */ 238);
+	var _todos = __webpack_require__(/*! ./todos.jsx */ 239);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -25367,7 +25402,7 @@
 	};
 
 /***/ },
-/* 238 */
+/* 239 */
 /*!*******************************************!*\
   !*** ./client/app/visibleTodos/todos.jsx ***!
   \*******************************************/
@@ -25396,41 +25431,6 @@
 	      style: { textDecoration: completed ? 'line-through' : 'none' } },
 	    text
 	  );
-	};
-
-/***/ },
-/* 239 */
-/*!***********************************************!*\
-  !*** ./client/app/actionCreators/actions.jsx ***!
-  \***********************************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var nextId = 0;
-	var addTodo = exports.addTodo = function addTodo(text) {
-	  return {
-	    type: 'ADD',
-	    id: nextId++,
-	    text: text
-	  };
-	};
-	
-	var setFilter = exports.setFilter = function setFilter(filter) {
-	  return {
-	    type: 'SET_FILTER',
-	    filter: filter
-	  };
-	};
-	
-	var toggleTodo = exports.toggleTodo = function toggleTodo(id) {
-	  return {
-	    type: 'TOGGLE',
-	    id: id
-	  };
 	};
 
 /***/ }

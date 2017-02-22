@@ -1,22 +1,16 @@
 let nextId = 0;
-export const addTodo = (text) => {
-  return {
-    type: 'ADD',
-    id: nextId++,
-    text
-  };
-}
+export const addTodo = (text) => ({
+  type: 'ADD',
+  id: nextId++,
+  text
+});
 
-export const setFilter = (filter) => {
-  return {
-    type: 'SET_FILTER',
-    filter
-  }
-}
+export const setFilter = (filter) => ({
+  type: 'SET_FILTER',
+  filter
+});
 
-export const toggleTodo = (id) => {
-  return {
+export const toggleTodo = (id) => ({
     type: 'TOGGLE',
     id
-  }
-}
+});

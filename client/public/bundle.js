@@ -24278,8 +24278,8 @@
 	    { store: store },
 	    _react2.default.createElement(
 	      _reactRouter.Router,
-	      null,
-	      _react2.default.createElement(_reactRouter.Route, { path: '/', component: _app2.default })
+	      { history: _reactRouter.browserHistory },
+	      _react2.default.createElement(_reactRouter.Route, { path: '/(:filter)', component: _app2.default })
 	    )
 	  );
 	};
@@ -31168,7 +31168,7 @@
 	
 	var _footer = __webpack_require__(/*! ./filters/footer.jsx */ 369);
 	
-	var _visibleTodos = __webpack_require__(/*! ./visibleTodos/visibleTodos.jsx */ 372);
+	var _visibleTodos = __webpack_require__(/*! ./visibleTodos/visibleTodos.jsx */ 371);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -39897,6 +39897,8 @@
 	
 	var _filterLink = __webpack_require__(/*! ./filterLink.jsx */ 370);
 	
+	var _filterLink2 = _interopRequireDefault(_filterLink);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Footer = exports.Footer = function Footer() {
@@ -39906,20 +39908,20 @@
 	    'Show:',
 	    ' ',
 	    _react2.default.createElement(
-	      _filterLink.FilterLink,
-	      { filter: 'SHOW_ALL' },
+	      _filterLink2.default,
+	      { filter: 'all' },
 	      'All'
 	    ),
 	    ', ',
 	    _react2.default.createElement(
-	      _filterLink.FilterLink,
-	      { filter: 'SHOW_ACTIVE' },
+	      _filterLink2.default,
+	      { filter: 'active' },
 	      'Active'
 	    ),
 	    ', ',
 	    _react2.default.createElement(
-	      _filterLink.FilterLink,
-	      { filter: 'SHOW_COMPLETED' },
+	      _filterLink2.default,
+	      { filter: 'completed' },
 	      'Completed'
 	    )
 	  );
@@ -39937,81 +39939,54 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.FilterLink = undefined;
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _link = __webpack_require__(/*! ./link.jsx */ 371);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 221);
-	
-	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 306);
+	var _reactRouter = __webpack_require__(/*! react-router */ 248);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var mapStateToFilterProps = function mapStateToFilterProps(state, ownProps) {
-	  return {
-	    active: ownProps.filter === state.vizFilter
-	  };
+	var FilterLink = function FilterLink(_ref) {
+	  var filter = _ref.filter,
+	      children = _ref.children;
+	  return _react2.default.createElement(
+	    _reactRouter.Link,
+	    {
+	      to: filter === 'all' ? '' : filter,
+	      activeStyle: {
+	        textDecoration: 'none',
+	        color: 'black'
+	      }
+	    },
+	    children
+	  );
 	};
 	
-	var mapDispatchToFilterProps = function mapDispatchToFilterProps(dispatch, ownProps) {
-	  return {
-	    onClick: function onClick() {
-	      dispatch((0, _actions.setFilter)(ownProps.filter));
-	    }
-	  };
-	};
+	exports.default = FilterLink;
 	
-	var FilterLink = exports.FilterLink = (0, _reactRedux.connect)(mapStateToFilterProps, mapDispatchToFilterProps)(_link.Link);
+	
+	{/*
+	  import React from 'react';
+	  import { Link } from './link.jsx';
+	  import { connect } from 'react-redux';
+	  import { setFilter } from '../actionCreators/actions.jsx';
+	  const mapStateToFilterProps = (state, ownProps) => ({
+	     active: ownProps.filter === state.vizFilter
+	  });
+	  const mapDispatchToFilterProps = (dispatch, ownProps) => ({
+	     onClick() {
+	       dispatch(setFilter(ownProps.filter))
+	     }
+	  });
+	  export const FilterLink = connect(
+	   mapStateToFilterProps, mapDispatchToFilterProps
+	  )(Link);
+	  */}
 
 /***/ },
 /* 371 */
-/*!*************************************!*\
-  !*** ./client/app/filters/link.jsx ***!
-  \*************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.Link = undefined;
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Link = exports.Link = function Link(_ref) {
-	  var active = _ref.active,
-	      children = _ref.children,
-	      _onClick = _ref.onClick;
-	
-	  if (active) {
-	    return _react2.default.createElement(
-	      'span',
-	      null,
-	      children
-	    );
-	  } else {
-	    return _react2.default.createElement(
-	      'a',
-	      { href: '#', onClick: function onClick(e) {
-	          e.preventDefault();
-	          _onClick();
-	        } },
-	      children
-	    );
-	  }
-	};
-
-/***/ },
-/* 372 */
 /*!**************************************************!*\
   !*** ./client/app/visibleTodos/visibleTodos.jsx ***!
   \**************************************************/
@@ -40030,7 +40005,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 221);
 	
-	var _todoList = __webpack_require__(/*! ./todoList.jsx */ 373);
+	var _todoList = __webpack_require__(/*! ./todoList.jsx */ 372);
 	
 	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 306);
 	
@@ -40068,7 +40043,7 @@
 	var VisibleTodoList = exports.VisibleTodoList = (0, _reactRedux.connect)(mapStateToTodoListProps, mapDispatchToTodoListProps)(_todoList.TodoList);
 
 /***/ },
-/* 373 */
+/* 372 */
 /*!**********************************************!*\
   !*** ./client/app/visibleTodos/todoList.jsx ***!
   \**********************************************/
@@ -40085,7 +40060,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _todos = __webpack_require__(/*! ./todos.jsx */ 374);
+	var _todos = __webpack_require__(/*! ./todos.jsx */ 373);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -40106,7 +40081,7 @@
 	};
 
 /***/ },
-/* 374 */
+/* 373 */
 /*!*******************************************!*\
   !*** ./client/app/visibleTodos/todos.jsx ***!
   \*******************************************/

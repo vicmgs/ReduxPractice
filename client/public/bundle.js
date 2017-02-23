@@ -39954,7 +39954,7 @@
 	  return _react2.default.createElement(
 	    _reactRouter.Link,
 	    {
-	      to: filter === 'all' ? '' : filter,
+	      to: filter === 'all' ? '/' : filter,
 	      activeStyle: {
 	        textDecoration: 'none',
 	        color: 'black'

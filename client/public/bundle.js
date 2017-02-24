@@ -22372,7 +22372,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var todoApp = (0, _redux.combineReducers)({ todos: _reducers.todos, vizFilter: _reducers.vizFilter });
+	var todoApp = (0, _redux.combineReducers)({ todos: _reducers.todos });
 	
 	var configureStore = function configureStore() {
 	  var persistedState = (0, _localStorage.loadState)();
@@ -23525,18 +23525,6 @@
 	      return state.map(function (t) {
 	        return todo(t, action);
 	      });
-	    default:
-	      return state;
-	  }
-	};
-	
-	var vizFilter = exports.vizFilter = function vizFilter() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'SHOW_ALL';
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	    case 'SET_FILTER':
-	      return action.filter;
 	    default:
 	      return state;
 	  }
@@ -31178,7 +31166,7 @@
 	    'div',
 	    null,
 	    _react2.default.createElement(_addTodo.AddTodo, null),
-	    _react2.default.createElement(_visibleTodos.VisibleTodoList, { filter: params.filter || 'all' }),
+	    _react2.default.createElement(_visibleTodos.VisibleTodoList, null),
 	    _react2.default.createElement(_footer.Footer, null)
 	  );
 	};
@@ -40004,6 +39992,8 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 248);
+	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 221);
 	
 	var _todoList = __webpack_require__(/*! ./todoList.jsx */ 372);
@@ -40027,9 +40017,10 @@
 	  }
 	};
 	
-	var mapStateToTodoListProps = function mapStateToTodoListProps(state, ownProps) {
+	var mapStateToTodoListProps = function mapStateToTodoListProps(state, _ref) {
+	  var params = _ref.params;
 	  return {
-	    todos: getVisibleTodos(state.todos, ownProps.filter)
+	    todos: getVisibleTodos(state.todos, params.filter || 'all')
 	  };
 	};
 	
@@ -40041,7 +40032,7 @@
 	  };
 	};
 	
-	var VisibleTodoList = exports.VisibleTodoList = (0, _reactRedux.connect)(mapStateToTodoListProps, mapDispatchToTodoListProps)(_todoList.TodoList);
+	var VisibleTodoList = exports.VisibleTodoList = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToTodoListProps, mapDispatchToTodoListProps)(_todoList.TodoList));
 
 /***/ },
 /* 372 */

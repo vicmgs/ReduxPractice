@@ -1,10 +1,10 @@
 import { createStore } from 'redux';
 import { combineReducers } from 'redux';
-import { todos, vizFilter } from './reducers/reducers.jsx';
+import { todos } from './reducers/reducers.jsx';
 import { loadState, saveState } from './localStorage/localStorage.jsx';
 import throttle from 'lodash/throttle';
 
-const todoApp = combineReducers({ todos, vizFilter });
+const todoApp = combineReducers({ todos });
 
 const configureStore = () => {
   const persistedState = loadState();

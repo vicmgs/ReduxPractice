@@ -40024,15 +40024,15 @@
 	  };
 	};
 	
-	var mapDispatchToTodoListProps = function mapDispatchToTodoListProps(dispatch) {
-	  return {
-	    onTodoClick: function onTodoClick(id) {
-	      dispatch((0, _actions.toggleTodo)(id));
-	    }
-	  };
-	};
+	{/*
+	  const mapDispatchToTodoListProps = (dispatch) => ({
+	   onTodoClick(id) {
+	     dispatch(toggleTodo(id))
+	   }
+	  });
+	  */}
 	
-	var VisibleTodoList = exports.VisibleTodoList = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToTodoListProps, mapDispatchToTodoListProps)(_todoList.TodoList));
+	var VisibleTodoList = exports.VisibleTodoList = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToTodoListProps, { onTodoClick: _actions.toggleTodo })(_todoList.TodoList));
 
 /***/ },
 /* 372 */

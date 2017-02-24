@@ -5,17 +5,17 @@ import { toggleTodo } from '../actionCreators/actions.jsx'
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
-    case 'SHOW_ALL':
+    case 'all':
       return todos;
-    case 'SHOW_COMPLETED':
+    case 'completed':
       return todos.filter(t => t.completed);
-    case 'SHOW_ACTIVE':
+    case 'active':
       return todos.filter(t => !t.completed);
   }
 }
 
-const mapStateToTodoListProps = (state) => ({
-  todos: getVisibleTodos(state.todos, state.vizFilter)
+const mapStateToTodoListProps = (state, ownProps) => ({
+  todos: getVisibleTodos(state.todos, ownProps.filter)
 });
 
 const mapDispatchToTodoListProps = (dispatch) => ({

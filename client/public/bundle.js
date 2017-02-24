@@ -31172,12 +31172,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var App = function App() {
+	var App = function App(_ref) {
+	  var params = _ref.params;
 	  return _react2.default.createElement(
 	    'div',
 	    null,
 	    _react2.default.createElement(_addTodo.AddTodo, null),
-	    _react2.default.createElement(_visibleTodos.VisibleTodoList, null),
+	    _react2.default.createElement(_visibleTodos.VisibleTodoList, { filter: params.filter || 'all' }),
 	    _react2.default.createElement(_footer.Footer, null)
 	  );
 	};
@@ -40013,22 +40014,22 @@
 	
 	var getVisibleTodos = function getVisibleTodos(todos, filter) {
 	  switch (filter) {
-	    case 'SHOW_ALL':
+	    case 'all':
 	      return todos;
-	    case 'SHOW_COMPLETED':
+	    case 'completed':
 	      return todos.filter(function (t) {
 	        return t.completed;
 	      });
-	    case 'SHOW_ACTIVE':
+	    case 'active':
 	      return todos.filter(function (t) {
 	        return !t.completed;
 	      });
 	  }
 	};
 	
-	var mapStateToTodoListProps = function mapStateToTodoListProps(state) {
+	var mapStateToTodoListProps = function mapStateToTodoListProps(state, ownProps) {
 	  return {
-	    todos: getVisibleTodos(state.todos, state.vizFilter)
+	    todos: getVisibleTodos(state.todos, ownProps.filter)
 	  };
 	};
 	

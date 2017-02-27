@@ -1,11 +1,11 @@
 import { createStore } from 'redux';
 import { combineReducers } from 'redux';
 import { todos } from './reducers/reducers.jsx';
-import { loadState, saveState } from './localStorage/localStorage.jsx';
-import throttle from 'lodash/throttle';
 import { getVisibleTodos } from './reducers/reducers.jsx'
+import { fetchTodos } from './fakeBackend.js'
 
 const todoApp = combineReducers({ todos });
+fetchTodos('all').then(data => console.log(data));
 
 const addLoggingToDispatch = (store) => {
   const rawDispatch = store.dispatch;
@@ -23,19 +23,11 @@ const addLoggingToDispatch = (store) => {
 }
 
 const configureStore = () => {
-  const persistedState = loadState();
-  const store = createStore(todoApp, persistedState);
+  const store = createStore(todoApp);
 
   if (process.env.NODE_ENV !== 'production') {
     store.dispatch = addLoggingToDispatch(store);
   }
-
-
-  store.subscribe(throttle(() => {
-    saveState({
-      todos: store.getState().todos
-    });
-  }, 1000));
 
   return store;
 }

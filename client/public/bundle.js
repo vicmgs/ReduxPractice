@@ -23492,13 +23492,23 @@
 /*!******************************************!*\
   !*** ./client/app/reducers/reducers.jsx ***!
   \******************************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.getVisibleTodos = exports.todos = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _redux = __webpack_require__(/*! redux */ 184);
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	var todo = function todo(state, action) {
 	  switch (action.type) {
 	    case 'ADD':
@@ -23518,32 +23528,50 @@
 	  }
 	};
 	
-	var todos = exports.todos = function todos() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	var byId = function byId() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	  var action = arguments[1];
 	
 	  switch (action.type) {
 	    case 'ADD':
-	      return state.concat(todo(undefined, action));
 	    case 'TOGGLE':
-	      return state.map(function (t) {
-	        return todo(t, action);
-	      });
+	      return _extends({}, state, _defineProperty({}, action.id, todo(state[action.id], action)));
 	    default:
 	      return state;
 	  }
 	};
 	
+	var allIds = function allIds() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case 'ADD':
+	      return [].concat(_toConsumableArray(state), [action.id]);
+	    default:
+	      return state;
+	  }
+	};
+	
+	var getAllTodos = function getAllTodos(state) {
+	  return state.allIds.map(function (id) {
+	    return state.byId[id];
+	  });
+	};
+	
+	var todos = exports.todos = (0, _redux.combineReducers)({ byId: byId, allIds: allIds });
+	
 	var getVisibleTodos = exports.getVisibleTodos = function getVisibleTodos(state, filter) {
+	  var allTodos = getAllTodos(state);
 	  switch (filter) {
 	    case 'all':
-	      return state;
+	      return allTodos;
 	    case 'completed':
-	      return state.filter(function (t) {
+	      return allTodos.filter(function (t) {
 	        return t.completed;
 	      });
 	    case 'active':
-	      return state.filter(function (t) {
+	      return allTodos.filter(function (t) {
 	        return !t.completed;
 	      });
 	  }
@@ -40006,6 +40034,8 @@
 	
 	var mapStateToTodoListProps = function mapStateToTodoListProps(state, _ref) {
 	  var params = _ref.params;
+	
+	  console.log(state);
 	  return {
 	    todos: (0, _configureStore.getVizTodos)(state, params.filter || 'all')
 	  };

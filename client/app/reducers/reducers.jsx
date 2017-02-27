@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 const todo = (state, action) => {
   switch (action.type) {
     case 'ADD':
@@ -17,24 +19,38 @@ const todo = (state, action) => {
   }
 }
 
-export const todos = (state = [], action) => {
+const byId = (state = {}, action) => {
   switch (action.type) {
     case 'ADD':
-      return state.concat(todo(undefined, action));
     case 'TOGGLE':
-      return state.map(t => todo(t, action));
+      return { ...state, [action.id]: todo(state[action.id], action) };
     default:
       return state;
   }
 }
 
+const allIds = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD':
+      return [...state, action.id];
+    default:
+      return state;
+  }
+}
+
+const getAllTodos = (state) =>
+  state.allIds.map(id => state.byId[id]);
+
+export const todos = combineReducers({ byId, allIds });
+
 export const getVisibleTodos = (state, filter) => {
+  const allTodos = getAllTodos(state);
   switch (filter) {
     case 'all':
-      return state;
+      return allTodos;
     case 'completed':
-      return state.filter(t => t.completed);
+      return allTodos.filter(t => t.completed);
     case 'active':
-      return state.filter(t => !t.completed);
+      return allTodos.filter(t => !t.completed);
   }
 }

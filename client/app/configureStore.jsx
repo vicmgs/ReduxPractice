@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { todos } from './reducers/reducers.jsx';
 import { loadState, saveState } from './localStorage/localStorage.jsx';
 import throttle from 'lodash/throttle';
+import { getVisibleTodos } from './reducers/reducers.jsx'
 
 const todoApp = combineReducers({ todos });
 
@@ -19,3 +20,5 @@ const configureStore = () => {
 }
 
 export default configureStore;
+
+export const getVizTodos = (state, filter) => getVisibleTodos(state.todos, filter);

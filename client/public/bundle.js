@@ -22359,6 +22359,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.getVizTodos = undefined;
 	
 	var _redux = __webpack_require__(/*! redux */ 184);
 	
@@ -22387,6 +22388,9 @@
 	};
 	
 	exports.default = configureStore;
+	var getVizTodos = exports.getVizTodos = function getVizTodos(state, filter) {
+	  return (0, _reducers.getVisibleTodos)(state.todos, filter);
+	};
 
 /***/ },
 /* 184 */
@@ -23527,6 +23531,21 @@
 	      });
 	    default:
 	      return state;
+	  }
+	};
+	
+	var getVisibleTodos = exports.getVisibleTodos = function getVisibleTodos(state, filter) {
+	  switch (filter) {
+	    case 'all':
+	      return state;
+	    case 'completed':
+	      return state.filter(function (t) {
+	        return t.completed;
+	      });
+	    case 'active':
+	      return state.filter(function (t) {
+	        return !t.completed;
+	      });
 	  }
 	};
 
@@ -39954,25 +39973,6 @@
 	};
 	
 	exports.default = FilterLink;
-	
-	
-	{/*
-	  import React from 'react';
-	  import { Link } from './link.jsx';
-	  import { connect } from 'react-redux';
-	  import { setFilter } from '../actionCreators/actions.jsx';
-	  const mapStateToFilterProps = (state, ownProps) => ({
-	     active: ownProps.filter === state.vizFilter
-	  });
-	  const mapDispatchToFilterProps = (dispatch, ownProps) => ({
-	     onClick() {
-	       dispatch(setFilter(ownProps.filter))
-	     }
-	  });
-	  export const FilterLink = connect(
-	   mapStateToFilterProps, mapDispatchToFilterProps
-	  )(Link);
-	  */}
 
 /***/ },
 /* 371 */
@@ -40000,37 +40000,16 @@
 	
 	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 306);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _configureStore = __webpack_require__(/*! ../configureStore.jsx */ 183);
 	
-	var getVisibleTodos = function getVisibleTodos(todos, filter) {
-	  switch (filter) {
-	    case 'all':
-	      return todos;
-	    case 'completed':
-	      return todos.filter(function (t) {
-	        return t.completed;
-	      });
-	    case 'active':
-	      return todos.filter(function (t) {
-	        return !t.completed;
-	      });
-	  }
-	};
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToTodoListProps = function mapStateToTodoListProps(state, _ref) {
 	  var params = _ref.params;
 	  return {
-	    todos: getVisibleTodos(state.todos, params.filter || 'all')
+	    todos: (0, _configureStore.getVizTodos)(state, params.filter || 'all')
 	  };
 	};
-	
-	{/*
-	  const mapDispatchToTodoListProps = (dispatch) => ({
-	   onTodoClick(id) {
-	     dispatch(toggleTodo(id))
-	   }
-	  });
-	  */}
 	
 	var VisibleTodoList = exports.VisibleTodoList = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToTodoListProps, { onTodoClick: _actions.toggleTodo })(_todoList.TodoList));
 

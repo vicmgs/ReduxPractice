@@ -22365,12 +22365,7 @@
 	
 	var _reducers = __webpack_require__(/*! ./reducers/reducers.jsx */ 205);
 	
-	var _fakeBackend = __webpack_require__(/*! ./fakeBackend.js */ 375);
-	
 	var todoApp = (0, _redux.combineReducers)({ todos: _reducers.todos });
-	(0, _fakeBackend.fetchTodos)('all').then(function (data) {
-	  return console.log(data);
-	});
 	
 	var addLoggingToDispatch = function addLoggingToDispatch(store) {
 	  var rawDispatch = store.dispatch;
@@ -39339,6 +39334,8 @@
 	});
 	exports.VisibleTodoList = undefined;
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -39353,16 +39350,66 @@
 	
 	var _configureStore = __webpack_require__(/*! ../configureStore.jsx */ 183);
 	
+	var _fakeBackend = __webpack_require__(/*! ../fakeBackend.js */ 375);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var VisibleTodoList = exports.VisibleTodoList = function (_Component) {
+	  _inherits(VisibleTodoList, _Component);
+	
+	  function VisibleTodoList() {
+	    _classCallCheck(this, VisibleTodoList);
+	
+	    return _possibleConstructorReturn(this, (VisibleTodoList.__proto__ || Object.getPrototypeOf(VisibleTodoList)).apply(this, arguments));
+	  }
+	
+	  _createClass(VisibleTodoList, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      (0, _fakeBackend.fetchTodos)(this.props.filter).then(function (todos) {
+	        return console.log(_this2.props.filter, todos);
+	      });
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps) {
+	      var _this3 = this;
+	
+	      if (this.props.filter !== prevProps.filter) {
+	        (0, _fakeBackend.fetchTodos)(this.props.filter).then(function (todos) {
+	          return console.log(_this3.props.filter, todos);
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_todoList.TodoList, this.props);
+	    }
+	  }]);
+	
+	  return VisibleTodoList;
+	}(_react.Component);
 	
 	var mapStateToTodoListProps = function mapStateToTodoListProps(state, _ref) {
 	  var params = _ref.params;
+	
+	  var filter = params.filter || 'all';
 	  return {
-	    todos: (0, _configureStore.getVizTodos)(state, params.filter || 'all')
+	    todos: (0, _configureStore.getVizTodos)(state, filter),
+	    filter: filter
 	  };
 	};
 	
-	var VisibleTodoList = exports.VisibleTodoList = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToTodoListProps, { onTodoClick: _actions.toggleTodo })(_todoList.TodoList));
+	exports.VisibleTodoList = VisibleTodoList = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToTodoListProps, { onTodoClick: _actions.toggleTodo })(VisibleTodoList));
 
 /***/ },
 /* 372 */

@@ -2,10 +2,8 @@ import { createStore } from 'redux';
 import { combineReducers } from 'redux';
 import { todos } from './reducers/reducers.jsx';
 import { getVisibleTodos } from './reducers/reducers.jsx'
-import { fetchTodos } from './fakeBackend.js'
 
 const todoApp = combineReducers({ todos });
-fetchTodos('all').then(data => console.log(data));
 
 const addLoggingToDispatch = (store) => {
   const rawDispatch = store.dispatch;

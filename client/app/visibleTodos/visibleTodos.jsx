@@ -5,12 +5,9 @@ import { TodoList } from './todoList.jsx'
 import { toggleTodo } from '../actionCreators/actions.jsx'
 import { getVizTodos } from '../configureStore.jsx'
 
-const mapStateToTodoListProps = (state, { params }) => {
-  console.log(state);
-  return {
+const mapStateToTodoListProps = (state, { params }) => ({
     todos: getVizTodos(state, params.filter || 'all')
-  }
-};
+});
 
 export const VisibleTodoList = withRouter(connect(
   mapStateToTodoListProps, { onTodoClick: toggleTodo }

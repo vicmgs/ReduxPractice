@@ -22354,7 +22354,7 @@
   \***************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22375,9 +22375,29 @@
 	
 	var todoApp = (0, _redux.combineReducers)({ todos: _reducers.todos });
 	
+	var addLoggingToDispatch = function addLoggingToDispatch(store) {
+	  var rawDispatch = store.dispatch;
+	  if (!console.group) return rawDispatch;
+	
+	  return function (action) {
+	    console.group(action.type);
+	    console.log('%c prev state', 'color: gray', store.getState());
+	    console.log('%c prev action', 'color: blue', action);
+	    var returnValue = rawDispatch(action);
+	    console.log('%c next state', 'color: green', store.getState());
+	    console.group(action.type);
+	    return returnValue;
+	  };
+	};
+	
 	var configureStore = function configureStore() {
 	  var persistedState = (0, _localStorage.loadState)();
 	  var store = (0, _redux.createStore)(todoApp, persistedState);
+	
+	  if (process.env.NODE_ENV !== 'production') {
+	    store.dispatch = addLoggingToDispatch(store);
+	  }
+	
 	  store.subscribe((0, _throttle2.default)(function () {
 	    (0, _localStorage.saveState)({
 	      todos: store.getState().todos
@@ -22391,6 +22411,7 @@
 	var getVizTodos = exports.getVizTodos = function getVizTodos(state, filter) {
 	  return (0, _reducers.getVisibleTodos)(state.todos, filter);
 	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../~/webpack/~/node-libs-browser/~/process/browser.js */ 3)))
 
 /***/ },
 /* 184 */
@@ -40034,8 +40055,6 @@
 	
 	var mapStateToTodoListProps = function mapStateToTodoListProps(state, _ref) {
 	  var params = _ref.params;
-	
-	  console.log(state);
 	  return {
 	    todos: (0, _configureStore.getVizTodos)(state, params.filter || 'all')
 	  };

@@ -6,6 +6,12 @@ export const addTodo = (text) => ({
   text
 });
 
+export const receiveTodos = (filter, response) => ({
+  type: 'RECEIVE',
+  response,
+  filter
+});
+
 export const setFilter = (filter) => ({
   type: 'SET_FILTER',
   filter

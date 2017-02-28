@@ -22374,10 +22374,10 @@
 	  return function (action) {
 	    console.group(action.type);
 	    console.log('%c prev state', 'color: gray', store.getState());
-	    console.log('%c prev action', 'color: blue', action);
+	    console.log('%c action', 'color: blue', action);
 	    var returnValue = rawDispatch(action);
 	    console.log('%c next state', 'color: green', store.getState());
-	    console.group(action.type);
+	    console.groupEnd(action.type);
 	    return returnValue;
 	  };
 	};
@@ -30597,7 +30597,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.toggleTodo = exports.setFilter = exports.addTodo = undefined;
+	exports.toggleTodo = exports.setFilter = exports.receiveTodos = exports.addTodo = undefined;
 	
 	var _nodeUuid = __webpack_require__(/*! node-uuid */ 307);
 	
@@ -30606,6 +30606,14 @@
 	    type: 'ADD',
 	    id: (0, _nodeUuid.v4)(),
 	    text: text
+	  };
+	};
+	
+	var receiveTodos = exports.receiveTodos = function receiveTodos(filter, response) {
+	  return {
+	    type: 'RECEIVE',
+	    response: response,
+	    filter: filter
 	  };
 	};
 	
@@ -39334,6 +39342,8 @@
 	});
 	exports.VisibleTodoList = undefined;
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 1);
@@ -39348,11 +39358,17 @@
 	
 	var _actions = __webpack_require__(/*! ../actionCreators/actions.jsx */ 306);
 	
+	var actions = _interopRequireWildcard(_actions);
+	
 	var _configureStore = __webpack_require__(/*! ../configureStore.jsx */ 183);
 	
 	var _fakeBackend = __webpack_require__(/*! ../fakeBackend.js */ 375);
 	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -39372,27 +39388,34 @@
 	  _createClass(VisibleTodoList, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      (0, _fakeBackend.fetchTodos)(this.props.filter).then(function (todos) {
-	        return console.log(_this2.props.filter, todos);
-	      });
+	      this.fetchData();
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate(prevProps) {
-	      var _this3 = this;
-	
 	      if (this.props.filter !== prevProps.filter) {
-	        (0, _fakeBackend.fetchTodos)(this.props.filter).then(function (todos) {
-	          return console.log(_this3.props.filter, todos);
-	        });
+	        this.fetchData();
 	      }
+	    }
+	  }, {
+	    key: 'fetchData',
+	    value: function fetchData() {
+	      var _props = this.props,
+	          filter = _props.filter,
+	          receiveTodos = _props.receiveTodos;
+	
+	      (0, _fakeBackend.fetchTodos)(filter).then(function (todos) {
+	        return receiveTodos(filter, todos);
+	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_todoList.TodoList, this.props);
+	      var _props2 = this.props,
+	          toggleTodo = _props2.toggleTodo,
+	          rest = _objectWithoutProperties(_props2, ['toggleTodo']);
+	
+	      return _react2.default.createElement(_todoList.TodoList, _extends({}, rest, { onTodoClick: toggleTodo }));
 	    }
 	  }]);
 	
@@ -39409,7 +39432,7 @@
 	  };
 	};
 	
-	exports.VisibleTodoList = VisibleTodoList = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToTodoListProps, { onTodoClick: _actions.toggleTodo })(VisibleTodoList));
+	exports.VisibleTodoList = VisibleTodoList = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToTodoListProps, actions)(VisibleTodoList));
 
 /***/ },
 /* 372 */

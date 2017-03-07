@@ -1,4 +1,5 @@
 import { v4 } from 'node-uuid';
+import * as api from '../fakeBackend.js';
 
 export const addTodo = (text) => ({
   type: 'ADD',
@@ -6,11 +7,16 @@ export const addTodo = (text) => ({
   text
 });
 
-export const receiveTodos = (filter, response) => ({
+const receiveTodos = (filter, response) => ({
   type: 'RECEIVE',
   response,
   filter
 });
+
+export const fetchTodos = (filter) =>
+  api.fetchTodos(filter).then(response =>
+    receiveTodos(filter, response)
+  );
 
 export const setFilter = (filter) => ({
   type: 'SET_FILTER',

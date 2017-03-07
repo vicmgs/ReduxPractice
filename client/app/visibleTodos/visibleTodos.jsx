@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { TodoList } from './todoList.jsx'
 import * as actions from '../actionCreators/actions.jsx'
 import { getVizTodos } from '../configureStore.jsx'
-import { fetchTodos } from '../fakeBackend.js'
 
 export class VisibleTodoList extends Component {
   componentDidMount() {
@@ -16,10 +15,8 @@ export class VisibleTodoList extends Component {
     }
   }
   fetchData() {
-    const { filter, receiveTodos } = this.props;
-    fetchTodos(filter).then(todos =>
-      receiveTodos(filter, todos)
-    );
+    const { filter, fetchTodos } = this.props;
+    fetchTodos(filter);
   }
   render() {
     const { toggleTodo, ...rest } = this.props;

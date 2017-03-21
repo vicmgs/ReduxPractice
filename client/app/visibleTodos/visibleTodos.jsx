@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { TodoList } from './todoList.jsx'
 import * as actions from '../actionCreators/actions.jsx'
 import { getVizTodos } from '../configureStore.jsx'
+import {createSelector} from 'reselect'
 
 export class VisibleTodoList extends Component {
   componentDidMount() {
@@ -24,12 +25,20 @@ export class VisibleTodoList extends Component {
   }
 }
 
-const mapStateToTodoListProps = (state, { params }) => {
-  const filter = params.filter || 'all';
-  return {
-    todos: getVizTodos(state, filter),
-    filter
+const data = createSelector(
+  state => state,
+  params => params.filter,
+  (state, filter) => {
+    filter = filter || 'all';
+    return {
+      todos: getVizTodos(state, filter),
+      filter
+    }
   }
+)
+
+const mapStateToTodoListProps = (state, { params }) => {
+  return data(state, { params })
 };
 
 VisibleTodoList = withRouter(connect(
